@@ -1,0 +1,311 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Bubu's Lucky Stars</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Kalam:wght@400;700&family=Mulish:wght@400;600;800&display=swap">
+<style>
+/* Layout: one night sky, three acts — the promise, the catch, the letters — then the last line. */
+:root{
+  --night:#0d0a24;
+  --dusk:#1e1546;
+  --star:#ffd36e;
+  --blush:#ff8fb1;
+  --mist:#c9c0ef;
+  --paper:#fff6ea;
+  --ink:#3a2236;
+  --display:"Rozha One", "Times New Roman", serif;
+  --hand:"Kalam", "Comic Sans MS", cursive;
+  --body:"Mulish", system-ui, sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background:radial-gradient(120% 80% at 50% 0%, var(--dusk), var(--night) 70%) fixed, var(--night);
+  color:var(--mist);font-family:var(--body);font-size:16px;line-height:1.6;min-height:100vh;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:24px 48px;
+}
+#sky{position:fixed;inset:0;z-index:0;pointer-events:none}
+main{position:relative;z-index:1;max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+h1,h2{font-family:var(--display);font-weight:400;color:var(--paper);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(2.2rem,8vw,3.6rem)}
+h1 em{font-style:normal;color:var(--star)}
+.eyebrow{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blush);font-weight:800}
+.lede{font-family:var(--hand);font-size:1.25rem;color:var(--mist);max-width:34ch;margin:0}
+.dates{display:flex;gap:10px;align-items:center;font-variant-numeric:tabular-nums;font-size:.9rem;color:var(--mist)}
+.dates b{color:var(--star);font-weight:800}
+button{font-family:var(--body);cursor:pointer}
+button:focus-visible{outline:3px solid var(--star);outline-offset:3px}
+.btn{
+  align-self:flex-start;background:var(--star);color:var(--night);border:0;border-radius:999px;
+  padding:14px 26px;font-weight:800;font-size:1rem;box-shadow:0 0 30px rgba(255,211,110,.35);
+  transition:transform .2s;
+}
+.btn:hover{transform:translateY(-2px)}
+#intro{display:flex;flex-direction:column;gap:18px;padding-top:6vh}
+#cover{display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px;padding-top:7vh}
+#cover h1{font-size:clamp(2.4rem,9vw,4rem)}
+#cover .lede{margin:0 auto}
+.chest{position:relative;width:180px;height:150px;margin-top:10px;border:0;background:none;padding:0}
+.chest .glow{position:absolute;left:50%;top:40px;width:220px;height:220px;transform:translate(-50%,-50%) scale(.4);border-radius:50%;background:radial-gradient(circle,rgba(255,211,110,.85),rgba(255,143,177,.25) 45%,transparent 70%);opacity:.5;transition:transform .9s ease,opacity .9s}
+.chest .base{position:absolute;bottom:0;left:0;right:0;height:86px;border-radius:6px 6px 12px 12px;background:linear-gradient(#a8566e,#6e2f4c);box-shadow:inset 0 -10px 0 rgba(0,0,0,.18)}
+.chest .base::before{content:"";position:absolute;inset:0 auto 0 50%;width:26px;transform:translateX(-50%);background:var(--star)}
+.chest .lock{position:absolute;bottom:56px;left:50%;transform:translateX(-50%);width:30px;height:30px;border-radius:50%;background:var(--paper);color:#6e2f4c;display:grid;place-items:center;font-size:16px;z-index:3}
+.chest .lid{position:absolute;bottom:80px;left:-4px;right:-4px;height:56px;border-radius:60px 60px 6px 6px;background:linear-gradient(#c96a88,#8c3d5e);transform-origin:50% 100%;transition:transform .8s cubic-bezier(.3,1.4,.5,1);z-index:2}
+.chest .lid::before{content:"";position:absolute;inset:0 auto 0 50%;width:26px;transform:translateX(-50%);background:var(--star);border-radius:6px 6px 0 0}
+.chest:hover .lid{transform:rotate(-4deg)}
+.chest.open .lid{transform:translateY(-34px) rotate(-28deg)}
+.chest.open .glow{transform:translate(-50%,-50%) scale(1.2);opacity:1}
+.chest.open .lock{opacity:0}
+.tap{font-size:.85rem;color:var(--mist);letter-spacing:.08em}
+@media (prefers-reduced-motion:no-preference){.chest:not(.open) .glow{animation:breathe 2.4s ease-in-out infinite}}
+@keyframes breathe{50%{opacity:.85}}
+
+/* puzzle */
+#game{display:flex;flex-direction:column;gap:14px}
+.hud{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.count{font-family:var(--display);font-size:2rem;color:var(--star);font-variant-numeric:tabular-nums}
+.count small{font-size:1rem;color:var(--mist)}
+.meter{height:6px;border-radius:6px;background:rgba(201,192,239,.15);overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blush),var(--star));transition:width .4s}
+.board{border-radius:18px;border:1px solid rgba(201,192,239,.18);background:rgba(13,10,36,.6);padding:22px 18px;display:flex;flex-direction:column;gap:18px;align-items:center;text-align:center}
+.qno{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blush);font-weight:800}
+.clue{font-family:var(--hand);font-size:1.35rem;color:var(--paper);margin:0;max-width:30ch}
+.slots,.tiles{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.slot,.tile{width:46px;height:54px;border-radius:10px;font-family:var(--display);font-size:1.6rem;display:grid;place-items:center;border:0;padding:0}
+.slot{background:transparent;border:2px dashed rgba(201,192,239,.35);color:var(--paper)}
+.slot.filled{border-style:solid;border-color:var(--star)}
+.tile{background:var(--star);color:var(--night);box-shadow:0 4px 0 #b88a2c;transition:transform .15s}
+.tile:hover{transform:translateY(-2px)}
+.tile.used{visibility:hidden}
+.slots.wrong{animation:shake .4s}
+.slots.right .slot{background:var(--star);color:var(--night);border-color:var(--star)}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.msg{font-family:var(--hand);font-size:1.1rem;color:var(--blush);min-height:1.6em;margin:0}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.ghost{background:transparent;color:var(--mist);border:1px solid rgba(201,192,239,.35);border-radius:999px;padding:9px 18px;font-weight:600}
+.burst{font-size:2rem;color:var(--star);letter-spacing:.3em}
+@media (max-width:400px){.slot,.tile{width:38px;height:46px;font-size:1.35rem}}
+
+/* envelopes */
+.env-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.env-head h2{font-size:1.6rem}
+.env-head span{font-size:.85rem}
+.envs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:520px){.envs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.env{
+  position:relative;aspect-ratio:4/3;max-width:100%;border:0;border-radius:10px;padding:12px;
+  background:var(--paper);color:var(--ink);text-align:left;display:flex;flex-direction:column;justify-content:flex-end;
+  font-family:var(--hand);font-size:1rem;line-height:1.25;overflow:hidden;transition:transform .25s, opacity .25s, filter .25s;
+}
+.env::before{ /* flap */
+  content:"";position:absolute;inset:0 0 auto 0;height:55%;
+  background:linear-gradient(to bottom right, transparent 49.5%, rgba(58,34,54,.12) 50%) left/50% 100% no-repeat,
+             linear-gradient(to bottom left, transparent 49.5%, rgba(58,34,54,.12) 50%) right/50% 100% no-repeat;
+}
+.env .seal{
+  position:absolute;top:34%;left:50%;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;
+  background:var(--blush);display:grid;place-items:center;color:var(--paper);font-size:15px;box-shadow:0 2px 6px rgba(0,0,0,.25)
+}
+.env .lbl{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-family:var(--body);font-weight:800;opacity:.6}
+.env[disabled]{filter:grayscale(.9) brightness(.45);cursor:not-allowed}
+.env:not([disabled]):hover{transform:translateY(-4px) rotate(-1deg)}
+.env.opened .seal{background:var(--star);color:var(--ink)}
+.env.fresh{animation:pop .7s ease}
+@keyframes pop{0%{transform:scale(.9)}50%{transform:scale(1.07)}100%{transform:scale(1)}}
+
+/* letter */
+.overlay{position:fixed;inset:0;z-index:20;background:rgba(8,6,22,.82);display:grid;place-items:center;
+  padding:max(20px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(20px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));overflow-y:auto}
+.letter{
+  background:var(--paper);color:var(--ink);max-width:520px;width:100%;border-radius:6px;padding:28px 24px 22px;
+  font-family:var(--hand);font-size:1.15rem;line-height:1.65;box-shadow:0 20px 60px rgba(0,0,0,.5);
+  background-image:repeating-linear-gradient(transparent 0 31px, rgba(255,143,177,.22) 31px 32px);
+  animation:unfold .5s ease;
+}
+@keyframes unfold{from{transform:translateY(20px) rotate(-2deg);opacity:0}to{transform:none;opacity:1}}
+.letter h3{font-family:var(--display);font-weight:400;font-size:1.5rem;margin:0 0 10px;color:#b23a6b}
+.letter p{margin:0 0 12px}
+.letter .sign{text-align:right;font-weight:700}
+.close{margin-top:6px;background:var(--ink);color:var(--paper);border:0;border-radius:999px;padding:10px 20px;font-weight:800}
+
+/* finale */
+#finale{text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px;padding-top:8vh}
+#finale .big{font-family:var(--display);font-size:clamp(2rem,7vw,3.2rem);color:var(--paper);line-height:1.2;text-wrap:balance;margin:0}
+#finale .big em{font-style:normal;color:var(--star)}
+#finale .hand{font-family:var(--hand);font-size:1.3rem;margin:0}
+#finale .btn{align-self:center}
+#toFinale{align-self:center}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<canvas id="sky" aria-hidden="true"></canvas>
+<main>
+  <section id="cover">
+    <div class="eyebrow">19 April 2025 → 19 October 2026</div>
+    <h1>Bubu, yeh hai tumhara<br><em>1 year 6 months</em> ka treasure</h1>
+    <p class="lede">18 mahine ki yaadein, ek chest mein band. Chaabi tumhare paas hai.</p>
+    <button class="chest" id="chest" aria-label="Open the treasure"><span class="glow"></span><span class="lid"></span><span class="base"></span><span class="lock">♥</span></button>
+    <div class="tap">Treasure kholne ke liye tap karo</div>
+  </section>
+
+  <section id="intro" hidden>
+    <div class="eyebrow">For Bubu, from Shonu</div>
+    <h1>18 mahine.<br><em>18 lucky stars.</em></h1>
+    <p class="lede">6 puzzles, sirf humari kahani ke baare mein. Har sahi jawab pe 3 stars aur ek chitthi. Dekhte hain bubu, kitna yaad hai tumhe.</p>
+    <div class="dates"><b>19.04.2025</b> <span>→</span> <b>19.10.2026</b></div>
+    <button class="btn" id="start">Shuru karo ✦</button>
+  </section>
+
+  <section id="game" hidden>
+    <div class="hud">
+      <div class="count"><span id="n">0</span><small> / 18 stars</small></div>
+      <span id="lvl">Puzzle 1 / 6</span>
+    </div>
+    <div class="meter"><i id="bar"></i></div>
+    <div class="board" id="board">
+      <div class="qno" id="qno"></div>
+      <p class="clue" id="clue"></p>
+      <div class="slots" id="slots"></div>
+      <div class="tiles" id="tiles"></div>
+      <p class="msg" id="msg">Letters pe tap karke sahi word banao</p>
+      <div class="row" id="ctrls"><button class="ghost" id="clear">Clear</button><button class="ghost" id="hintb">Hint</button></div>
+    </div>
+
+    <div class="env-head">
+      <h2>Open when…</h2>
+      <span id="opened">0 / 6 khuli</span>
+    </div>
+    <div class="envs" id="envs"></div>
+    <button class="btn" id="toFinale" hidden>Ek aakhri baat… ✦</button>
+  </section>
+
+  <section id="finale" hidden>
+    <div class="eyebrow">19 April 2025 se ab tak</div>
+    <p class="big">It's only <em>1 and a half</em> years, bubu.<br>There's a lifelong to go.</p>
+    <p class="hand">Happy 1.5 years, meri lucky star.<br>Hamesha tumhara, shonu.</p>
+    <button class="btn" id="replay">Phir se khelo</button>
+  </section>
+</main>
+
+<div class="overlay" id="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="lt">
+  <article class="letter">
+    <h3 id="lt"></h3>
+    <div id="lb"></div>
+    <button class="close" id="close">Band karo</button>
+  </article>
+</div>
+
+<script>
+const LETTERS = [
+  {t:"Open when you miss me", b:[
+    "Bubu,",
+    "Agar yeh padh rahi ho, matlab main paas nahi hoon aur tum mujhe miss kar rahi ho. Same here, pakka.",
+    "Aankhen band karo aur woh din yaad karo jab maine tumhe pehli baar dekha tha. White aur blue striped shirt, baal ek bun mein. Main tab kisi ke liye ready nahi tha, phir bhi nazar hat hi nahi rahi thi.",
+    "Distance sirf kilometres mein hota hai, dil mein nahi. Main jahan bhi hoon, tumhara hi hoon.",
+    "Jaldi milte hain. Tab tak ek tight jhappi, advance mein."]},
+  {t:"Open when you've had a bad day", b:[
+    "Meri bubu,",
+    "Aaj ka din bura tha? Koi baat nahi. Ek bura din tumhari poori kahani nahi likhta.",
+    "Pehle ek gehri saans lo. Paani piyo. Kuch khao. (Haan, main dekh raha hoon.)",
+    "Phir yaad rakhna, bure din aate hain par tum unse bhi zyada ziddi ho. Tumse strong koi nahi.",
+    "Aur agar duniya thodi zyada heavy lage, toh mujhe call karo. Main sunne ke liye hoon, judge karne ke liye nahi. Tumhara shonu hamesha tumhari team pe hai."]},
+  {t:"Open when you can't sleep", b:[
+    "Bubu,",
+    "Neend nahi aa rahi? Chalo, ek kahani sunata hoon.",
+    "Ek ladka tha. Futsal khel ke aaya, pasine mein bheega hua, mamak ke bahar car mein baitha, aur dil game se bhi tez dhadak raha tha. Usne ek ladki se poocha, \"mere saath rahogi?\" Aur ladki ne haan bola.",
+    "Woh 19 April 2025 tha. Aur woh ladka aaj bhi us din ko apni life ka best decision maanta hai.",
+    "Ab aankhen band karo. Sapne mein mamak chalte hain, maggi goreng meri taraf se. Good night, meri jaan."]},
+  {t:"Open when you doubt yourself", b:[
+    "Suno bubu,",
+    "Jo awaaz tumse keh rahi hai ki tum kaafi nahi ho, woh jhooth bol rahi hai.",
+    "Main tumhe roz dekhta hoon. Tum smart ho, kind ho, aur jab tum kuch thaan leti ho na, toh tumhe koi nahi rok sakta.",
+    "Jitni baar tumne socha \"main nahi kar paungi\", utni baar tumne kar ke dikhaya. Aur main har baar gawah tha, sabse aage wali seat pe baith ke taali bajata hua.",
+    "Tum meri lucky star ho. Aur stars kabhi chhote nahi hote, bas door se chhote dikhte hain."]},
+  {t:"Open when we've had a fight", b:[
+    "Bubu,",
+    "Haan, shayad main galat tha. Shayad tum. Shayad dono. Par ek baat pakki hai: koi bhi fight hum dono se badi nahi hai.",
+    "Main tumse ladd sakta hoon, par tumhare bina reh nahi sakta.",
+    "Toh chalo, ego ko side mein rakhte hain. Ek baar baat karte hain, ek baar sunte hain, aur phir ek lambi si jhappi.",
+    "Aur sorry pehle main bolunga. Kyunki mujhe tumse nahi jeetna, tumhare saath jeetna hai."]},
+  {t:"Open when you want to know why I love you", b:[
+    "Meri bubu,",
+    "Kyunki tum meri simple si life ka filmy background music ho.",
+    "Kyunki tumhari hasi sunke mera sabse kharab din bhi theek ho jaata hai.",
+    "Kyunki pehli nazar mein hi kuch ho gaya tha, aur 18 mahine baad bhi roz thoda aur ho jaata hai.",
+    "Kyunki tum, tum ho.",
+    "I chose you, my lucky star. Aur main roz tumhe hi choose karunga."]}
+];
+const GOAL=18, PER=3;
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $=id=>document.getElementById(id);
+let caught=0, opened=new Set();
+
+/* background sky */
+const sky=$('sky'), sctx=sky.getContext('2d'); let dots=[];
+function sizeSky(){const d=devicePixelRatio||1;sky.width=innerWidth*d;sky.height=innerHeight*d;sctx.setTransform(d,0,0,d,0,0);
+  dots=Array.from({length:Math.round(innerWidth*innerHeight/5000)},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.3+.2,p:Math.random()*6}));}
+function drawSky(t){sctx.clearRect(0,0,innerWidth,innerHeight);
+  for(const s of dots){const a=reduce?.6:.35+.35*Math.sin(t/900+s.p);sctx.fillStyle=`rgba(255,246,234,${a})`;sctx.beginPath();sctx.arc(s.x,s.y,s.r,0,7);sctx.fill();}
+  requestAnimationFrame(drawSky);}
+addEventListener('resize',sizeSky);sizeSky();requestAnimationFrame(drawSky);
+
+/* envelopes */
+const envs=$('envs');
+LETTERS.forEach((l,i)=>{const b=document.createElement('button');b.className='env';b.id='env'+i;b.disabled=true;
+  b.innerHTML=`<span class="seal">🔒</span><span class="lbl">Letter ${i+1}</span><span>${l.t}</span>`;
+  b.addEventListener('click',()=>openLetter(i));envs.appendChild(b);});
+function unlock(i){const b=$('env'+i);if(!b.disabled)return;b.disabled=false;b.querySelector('.seal').textContent='♥';b.classList.add('fresh');}
+function openLetter(i){const l=LETTERS[i];$('lt').textContent=l.t;
+  $('lb').innerHTML=l.b.map(p=>`<p>${p}</p>`).join('')+'<p class="sign">Tumhara, shonu</p>';
+  $('overlay').hidden=false;$('close').focus();opened.add(i);$('env'+i).classList.add('opened');$('env'+i).querySelector('.seal').textContent='✦';
+  $('opened').textContent=`${opened.size} / 6 khuli`;}
+$('close').onclick=()=>{$('overlay').hidden=true;checkDone();};
+$('overlay').addEventListener('click',e=>{if(e.target.id==='overlay')$('close').click();});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('overlay').hidden)$('close').click();});
+function checkDone(){if(caught>=GOAL&&opened.size===6)$('toFinale').hidden=false;}
+
+/* puzzle */
+const PUZ=[
+  {w:"BUBU",c:"Main tumhe pyaar se kya bulata hoon?"},
+  {w:"SHONU",c:"Aur tum mujhe kya bulati ho?"},
+  {w:"STRIPED",c:"Pehli baar dekha tha tab tumhari white-blue shirt kaisi thi?"},
+  {w:"FUTSAL",c:"Propose karne se pehle main kya khel ke aaya tha?"},
+  {w:"MAMAK",c:"Car kiske bahar khadi thi jab maine poocha?"},
+  {w:"STAR",c:"Tum meri lucky ____ ho."}
+];
+let lvl=0, pick=[], tileEls=[];
+function shuffle(w){let a=[...w];do{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}}while(a.join('')===w);return a;}
+function render(){
+  const p=PUZ[lvl];pick=[];$('qno').textContent=`Puzzle ${lvl+1}`;$('lvl').textContent=`Puzzle ${lvl+1} / 6`;$('clue').textContent=p.c;
+  $('msg').textContent='Letters pe tap karke sahi word banao';$('ctrls').hidden=false;
+  const sl=$('slots');sl.className='slots';sl.innerHTML='';
+  for(let i=0;i<p.w.length;i++){const d=document.createElement('button');d.className='slot';d.setAttribute('aria-label','Empty');d.onclick=()=>unpick(i);sl.appendChild(d);}
+  const tl=$('tiles');tl.innerHTML='';tileEls=shuffle(p.w).map((ch,i)=>{const t=document.createElement('button');t.className='tile';t.textContent=ch;t.onclick=()=>take(i);tl.appendChild(t);return t;});
+}
+function paint(){const s=$('slots').children;for(let i=0;i<s.length;i++){const k=pick[i];s[i].textContent=k==null?'':tileEls[k].textContent;s[i].classList.toggle('filled',k!=null);}
+  tileEls.forEach((t,i)=>t.classList.toggle('used',pick.includes(i)));}
+function take(i){if(pick.includes(i))return;const e=pick.findIndex(x=>x==null);if(e>-1)pick[e]=i;else pick.push(i);paint();check();}
+function unpick(i){if(pick[i]==null)return;pick[i]=null;paint();}
+function check(){const p=PUZ[lvl];if(pick.length<p.w.length||pick.includes(null))return;
+  const guess=pick.map(k=>tileEls[k].textContent).join('');
+  if(guess===p.w){$('slots').classList.add('right');solved();}
+  else{const sl=$('slots');sl.classList.remove('wrong');void sl.offsetWidth;sl.classList.add('wrong');$('msg').textContent='Hmm, phir se try karo bubu';setTimeout(()=>{pick=[];paint();},450);}}
+function solved(){caught+=3;$('n').textContent=caught;$('bar').style.width=(caught/GOAL*100)+'%';unlock(lvl);$('ctrls').hidden=true;
+  $('msg').innerHTML=`<span class="burst">✦✦✦</span><br>Sahi jawab! Chitthi #${lvl+1} khul gayi, neeche dekho`;
+  const nb=document.createElement('button');nb.className='btn';nb.style.alignSelf='center';
+  if(lvl<5){nb.textContent='Agla puzzle →';nb.onclick=()=>{lvl++;nb.remove();render();};}
+  else{nb.textContent='Saare 18 stars tumhare ✦';nb.disabled=true;checkDone();}
+  $('board').appendChild(nb);}
+$('clear').onclick=()=>{pick=[];paint();};
+$('hintb').onclick=()=>{const p=PUZ[lvl];$('msg').textContent=`Pehla letter: ${p.w[0]}, aur ${p.w.length} letters ka word`;};
+
+$('chest').onclick=()=>{$('chest').classList.add('open');setTimeout(()=>{$('cover').hidden=true;$('intro').hidden=false;scrollTo(0,0);},reduce?0:1100);};
+$('start').onclick=()=>{$('intro').hidden=true;$('game').hidden=false;render();};
+$('toFinale').onclick=()=>{$('game').hidden=true;$('finale').hidden=false;scrollTo(0,0);};
+$('replay').onclick=()=>{$('finale').hidden=true;$('game').hidden=false;scrollTo(0,0);};
+</script>
+
+</body></html>
